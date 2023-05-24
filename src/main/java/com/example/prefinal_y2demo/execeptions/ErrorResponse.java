@@ -1,4 +1,4 @@
-package sit.int221.sas.sit_announcement_system_backend.execeptions;
+package com.example.prefinal_y2demo.execeptions;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -20,19 +20,19 @@ public class ErrorResponse {
     private final String message;
     private final String instance;
     private String stackTrace;
-    private List<ValidationError> detail;
+    private List<ValidationError> errors;
 
     public void addValidationError(String field, String message) {
-        if (Objects.isNull(detail)) {
-            detail = new ArrayList<>();
+        if (Objects.isNull(errors)) {
+            errors = new ArrayList<>();
         }
-        detail.add(new ValidationError(field, message));
+        errors.add(new ValidationError(field, message));
     }
 
     @Getter
     @Setter
     @RequiredArgsConstructor
-    private static class ValidationError {
+    public static class ValidationError {
         private final String field;
         private final String errorMessage;
     }

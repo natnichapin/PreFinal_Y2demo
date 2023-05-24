@@ -1,9 +1,8 @@
-package sit.int204.classicmodels.properties;
+package com.example.prefinal_y2demo.properties;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
 @ConfigurationProperties(prefix =  "file")
 @Getter

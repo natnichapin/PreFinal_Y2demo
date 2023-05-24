@@ -1,4 +1,4 @@
-package sit.int221.sas.sit_announcement_system_backend.execeptions;
+package com.example.prefinal_y2demo.execeptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,35 +9,34 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ErrorResponse> handleValidateError(MethodArgumentNotValidException ex, WebRequest request) {
-        ErrorResponse er = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), request.getDescription(false));
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            //String fieldName = error.getObjectName();
-            String fieldName = error.getArguments()[error.getArguments().length-1].toString();
-            if (error instanceof FieldError)  fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            er.addValidationError(fieldName, errorMessage);
-        });
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(er);
-    }
 
-    @ExceptionHandler(CustomException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ErrorResponse> handleNullPointer (CustomException e,WebRequest request){
+
+@ExceptionHandler(CustomExceptionBadRequest.class)
+ @ResponseStatus(HttpStatus.BAD_REQUEST)
+ public ResponseEntity<ErrorResponse> handlerBadRequest (CustomExceptionBadRequest e,WebRequest request){
+    ErrorResponse er = new ErrorResponse(HttpStatus.NOT_FOUND.value(),e.getMessage(),request.getDescription(false)) ;
+    er.setErrors( e.getListError());
+return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(er) ;
+}
+
+    @ExceptionHandler(CustomExceptionNotFound.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<ErrorResponse> handlerBadRequest (CustomExceptionNotFound e,WebRequest request){
         ErrorResponse er = new ErrorResponse(HttpStatus.NOT_FOUND.value(),e.getMessage(),request.getDescription(false)) ;
-        er.addValidationError(e.getAdditionalField1(),e.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(er);
+        er.addValidationError(e.getMessage(), e.getFiled());
+        return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(er) ;
     }
 
-
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<ErrorResponse> handlerBadRequest (RuntimeException e,WebRequest request){
+        ErrorResponse er = new ErrorResponse(HttpStatus.NOT_FOUND.value(),e.getMessage(),request.getDescription(false)) ;
+        return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(er) ;
+    }
     //    @ExceptionHandler(RuntimeException.class)
 //    @ResponseStatus(HttpStatus.NOT_FOUND)
 //    public ResponseEntity<ErrorResponse>  handlerAuthentication(RuntimeException e){

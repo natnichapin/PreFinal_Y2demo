@@ -1,4 +1,4 @@
-package sit.int221.sas.sit_announcement_system_backend.DTO;
+package com.example.prefinal_y2demo.DTO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

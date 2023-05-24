@@ -1,5 +1,7 @@
-package sit.int221.sas.sit_announcement_system_backend.utils;
+package com.example.prefinal_y2demo.utils;
 
+
+import com.example.prefinal_y2demo.entity.Student;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,9 @@ public class ApplicationConfig {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
+
+
+
 
 //    @ExceptionHandler(value = { ResourceNotFoundException.class })
 //    @ResponseStatus(HttpStatus.NOT_FOUND)

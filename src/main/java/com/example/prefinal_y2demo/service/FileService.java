@@ -1,13 +1,12 @@
-package sit.int204.classicmodels.services;
+package com.example.prefinal_y2demo.service;
 
+import com.example.prefinal_y2demo.properties.FileStorageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import sit.int204.classicmodels.properties.FileStorageProperties;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -15,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Locale;
 
 @Service
 public class FileService {
@@ -52,7 +50,6 @@ public class FileService {
         }
     }
     public Resource loadFileAsResource(String fileName) {
-        Integer.valueOf("ABC");
 
         try {
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();

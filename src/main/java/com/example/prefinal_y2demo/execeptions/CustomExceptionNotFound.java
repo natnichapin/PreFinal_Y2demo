@@ -7,12 +7,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CustomExceptionNotFound  extends RuntimeException {
-    private String errorField;
+    private String filed;
 
 
     public CustomExceptionNotFound (String message, String Field) {
         super(message);
-        this.errorField = Field;
+        this.filed = Field;
 
     }
 
